@@ -49,5 +49,17 @@ NOTE:Particles are not supported. You may need to edit with particle editor of K
 * KwikGenertate.jsx uses the generator of photoshop to output image files instead of Publish command with export images enabled. 
 * This script does not generate lua files. It only outputs images to build4/assets/images/ folder
 * Once you have generated images with this scirpt, please go back to Kwik Panel to use Publish command with export images disabled
+* Ultimate config project only
+
+For Mac,it will create a **temp.command** in ~/Documents/Kwik folder and it needs a file permmission for execute. 
+
+1. Create a test project 
+1. run the script
+1. find ~/Documents/Kwik/temp.command 
+1. add file permission to execute
+1. run the script again. this time will succeed
+1. check images are outputted in build4/assets/images
+
+Once temp.command has a permission to execute, it keeps the permission whenever temp.command is updated for another project
 
 > this script will be migrated to Kwik sooner or later.
