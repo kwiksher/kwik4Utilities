@@ -44,6 +44,12 @@ These components have the [x,y] or [width, height] properties and the values are
 
 NOTE:Particles are not supported. You may need to edit with particle editor of Kwik4 (Kaboom) to adjust the value of the json file
 
+You need to enlarge Image size or Canvas Size of each psd files manually. See the following articles from Getting Startted > Guidelines
+
+* [Kwik3 image on a PSD of Kwik4](https://kwiksher.com/doc/getting_startted/guidelines/migration_from_kwik3/content_area_nw2uc/)
+
+* [A background layer](https://kwiksher.com/doc/getting_startted/guidelines/screenshot/)
+
 ## KwikGenerate
 
 * KwikGenertate.jsx uses the generator of photoshop to output image files instead of Publish command with export images enabled. 
