@@ -1,8 +1,9 @@
-﻿var target       = 0; // 0 == all
-//
+var target       = 0; // 0 == all pages, or input the page number
+// 
 var timeout = 30;
 //
-var projName = "HelloWorld"; // "" will open a file dialog
+var projName = ""; // "" will open a file dialog
+//var projName = "HelloWorld"; // "" will open a file dialog
 //
 var projFolder   = "~/Documents/Kwik";
 var bPower2check = true;
