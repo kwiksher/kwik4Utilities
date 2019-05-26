@@ -51,7 +51,7 @@ NOTE:Particles are not supported. You may need to edit with particle editor of K
 * Once you have generated images with this scirpt, please go back to Kwik Panel to use Publish command with export images disabled
 * Ultimate config project only
 
-For Mac,it will create a **temp.command** in ~/Documents/Kwik folder and it needs a file permmission for execute. 
+For Mac,it will create a file - **temp.command** in ~/Documents/Kwik folder and it needs a file permmission for execute. 
 
 1. Create a test project 
 1. run the script
