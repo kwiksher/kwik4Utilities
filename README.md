@@ -5,6 +5,8 @@
 
 then a file dialog appears to select a .kwk file of your project.
 
+Open the project (.kwk) with Kwik4. Kwik3 project folder lacks the tmplt folder of Kwik4, you can add it from Project Properties > Publish > update template. It adds the tmplt folder which contains lua template files for publish.
+
 ## KwikResize
 
 KwikResize.jsx translates the coordinate [x,y] in a Kwik3 project to the coordinate x, y of ultimate config(@4x) system of Kwik4
