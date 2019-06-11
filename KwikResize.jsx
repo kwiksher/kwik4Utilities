@@ -85,6 +85,7 @@ function KwikResize(){
     _Type = kXML.settings.device
 
     kXML.settings.device = "Ultimate Config";
+    kXML.settings.OS = "all";
     kXML.settings.width = 1920;
     kXML.settings.height = 1280;
     
