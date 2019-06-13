@@ -197,6 +197,7 @@ var doPublish = function(){
                 o.psdName = String(kXML.pages.page[i].fileName);
                 o.psdName = o.psdName.substring(0, o.psdName.length-4);
                 //
+                activeDocument.activeLayer.opacity = 100;
                 activeDocument.activeLayer.name = layerName + "@4x.png, 50% " + layerName + "@2x.png, 25% " + layerName + ".png";
                 //
                 if (kXML.pages.page[i].layer.length() > 0 ){
@@ -223,6 +224,7 @@ var doPublish = function(){
         aFile.assetDir = docSel.substring(0, docSel.length-4) + "_-assets";
         aFile.imageCount = imageCount;
         files.push(aFile);
+        activeDocument.resizeCanvas(2776, 1440); // iPhone X
         activeDocument.saveAs(new File(aFile.fsName), PhotoshopSaveOptions);
         activeDocument.close(SaveOptions.DONOTSAVECHANGES);
     }
