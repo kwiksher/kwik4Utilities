@@ -49,8 +49,12 @@ function kPos(aXML, nameX, nameY){
 }
 
 function kSize(aXML, name) {
-    if (aXML[name].length() > 0){
-        aXML[name] = Math.round(parseFloat (aXML[name])*1280/deviceMap[_Type].height);
+    try{
+        if (aXML[name].length() > 0){
+            aXML[name] = Math.round(parseFloat (aXML[name])*1280/deviceMap[_Type].height);
+        }
+    }catch(e){
+        //alert(name);
     }
  }
     
