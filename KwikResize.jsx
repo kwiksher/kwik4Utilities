@@ -38,6 +38,8 @@ deviceMap["New Universal"] = {"width": 2048, "height": 1536};
 deviceMap["iPad Pro"]      = {"width": 2732, "height": 2048};
 deviceMap["Universal"]     = deviceMap["iPad Mini"];
 deviceMap["iPad Air"]      = deviceMap["New Universal"]
+var SPRITE_CONV            = false;
+
 
 function kPos(aXML, nameX, nameY){
     if (aXML[nameX].length() > 0){
@@ -79,6 +81,8 @@ function KwikResize(){
     c = projFile.read();
     projFile.close();
     //
+    projFile.copy(f+".bak");
+    //
     var kXML = new XML (c);
     
     //Settings
@@ -116,10 +120,12 @@ function KwikResize(){
             var replacement = pXML.replacement[ii];
         
             //spritesheet
-            kSize(replacement, "frameWidth");
-            kSize(replacement, "frameHeight");
-            kSize(replacement, "sheetWidth");
-            kSize(replacement, "sheetHeight");
+            if (SPRITE_CONV){
+                kSize(replacement, "frameWidth");
+                kSize(replacement, "frameHeight");
+                kSize(replacement, "sheetWidth");
+                kSize(replacement, "sheetHeight");
+            }
 
             //video
             //web
@@ -240,4 +246,6 @@ function KwikResize(){
 
 }
 
+alert("This script converts Kwik3 to Kwik4 Universal Config. Please select a .kwk file");
 KwikResize()
+alert("Done. \n 1. Open the .kwk with Kwik4. \n 2. Project Properties > Publish > Update template");
