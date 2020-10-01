@@ -1,4 +1,8 @@
-﻿/*
+var projFolder = "~/Documents/Kwik";
+var _Type = "New Universal"; 
+
+
+/*
 Ultimate Config (@4x)
     1920
     1280
@@ -31,38 +35,59 @@ iPhone X not in Kwik3
     1440
 */
 
-var _Type
+
+var SPRITE_CONV = false;
+
 var deviceMap = {}
 deviceMap["iPad Mini"]     = {"width": 1024, "height": 768};
 deviceMap["New Universal"] = {"width": 2048, "height": 1536};
 deviceMap["iPad Pro"]      = {"width": 2732, "height": 2048};
 deviceMap["Universal"]     = deviceMap["iPad Mini"];
-deviceMap["iPad Air"]      = deviceMap["New Universal"]
-var SPRITE_CONV            = false;
+deviceMap["iPad Air"]      = deviceMap["New Universal"];
+
+//loops each page
+var percent;
+var _W;
+var _H;
+
+function initSize(type){
+    percent = 1280/deviceMap[type].height;
+    _W     = deviceMap[type].width * percent;
+    _H     = deviceMap[type].height * percent;    
+}
+
+function kUltimateConfig(x, y){
+    var w = 480;
+    var h = 320;
+    var mX = 1920/2 + (x*0.25 - w*0.5);
+    var mY = 1280/2 + (y*0.25 - h*0.5);
+    return [mX, mY];
+}
 
 
 function kPos(aXML, nameX, nameY){
     if (aXML[nameX].length() > 0){
-        aXML[nameX] = Math.round((parseFloat (aXML[nameX])-deviceMap[_Type].width/2)*1280/deviceMap[_Type].height + 1920/2);
+        aXML[nameX] = Math.floor((parseFloat (aXML[nameX])-deviceMap[_Type].width/2) * percent+ 1920/2);
     }
     if (aXML[nameY].length() > 0){
-        aXML[nameY] = Math.round( (parseFloat (aXML[nameY])-deviceMap[_Type].height/2)*1280/deviceMap[_Type].height + 1280/2);
+        aXML[nameY] = Math.floor( (parseFloat (aXML[nameY])-deviceMap[_Type].height/2) * percent + 1280/2);
     }
 }
 
 function kSize(aXML, name) {
     try{
-        if (aXML[name].length() > 0){
-            aXML[name] = Math.round(parseFloat (aXML[name])*1280/deviceMap[_Type].height);
+        if (typeof aXML[name] !== undefined && aXML[name].length() > 0){
+            aXML[name] = Math.floor(parseFloat (aXML[name])*percent);
+        }else{
+           // alert(name);
         }
     }catch(e){
         //alert(name);
     }
  }
-    
-var projFolder = "~/Documents/Kwik";
 
-function KwikResize(){
+
+ function selectDialog(){
     var msgOpenDlg = { en: "Select .kwk file", jp: ".kwkファイルを選択してください" }
     $.localize = true;
     //
@@ -73,6 +98,10 @@ function KwikResize(){
     }else{
         f = String(fol.openDlg (msgOpenDlg));
     }
+    return f;
+ }
+
+function KwikResize(f){
     //
     var c;
     var projFile = File(f);
@@ -80,8 +109,9 @@ function KwikResize(){
     projFile.open("e","TEXT","????");
     c = projFile.read();
     projFile.close();
-    //
+
     projFile.copy(f+".bak");
+
     //
     var kXML = new XML (c);
     
@@ -90,10 +120,11 @@ function KwikResize(){
         return;
     }
     
-    _Type = kXML.settings.device
+    _Type = kXML.settings.device;
+
+    initSize(_Type);
 
     kXML.settings.device = "Ultimate Config";
-    kXML.settings.OS = "all";
     kXML.settings.width = 1920;
     kXML.settings.height = 1280;
     
@@ -105,7 +136,7 @@ function KwikResize(){
 
     for (var i=0;i<=kXML.pages.children().length()-1;i++) {
         var pXML = kXML.pages.page[i];
-      
+        //alert(pXML.name);
         //page properties
         kSize(pXML, "swipSpacer");
       
@@ -176,7 +207,7 @@ function KwikResize(){
         
         //Swipe
         for (var ii=0;ii<=pXML.swipe.length()-1;ii++) {
-            var swip = pXML.swip[ii];
+            var swipe = pXML.swip[ii];
             kSize(swipe, "spacer");
             kSize(swipe, "limitAngle");
         }
@@ -243,9 +274,55 @@ function KwikResize(){
     projFile.open("w","TEXT","????");
     projFile.write(kXML);
     projFile.close();
-
 }
 
+var target       = 0; // 0 == all pages
+
+var resizePSD = function(f){
+
+    var c;
+    var projFile = File(f);
+    projFile.encoding = "UTF-8";
+    projFile.open("e","TEXT","????");
+    c = projFile.read();
+    projFile.close();
+
+    //
+    var kXML = new XML (c);
+    var parse = function (i){
+        var docSel = projFolder+"/" + kXML.settings.name + "/"+String(kXML.pages.page[i].fileName);
+        open(File(docSel));
+        
+/*
+        var doc = activeDocument;
+         // Loop through every layer...
+        for( var i = 0 ; i < doc.artLayers.length; i++ ){
+            var activeLayer = doc.artLayers.getByName( doc.artLayers[ i ].name  );
+            // Save original ruler units
+            var orUnits = app.preferences.rulerUnits;
+            app.preferences.rulerUnits = Units.PERCENT;
+            activeLayer.resize( percent, percent, AnchorPosition.MIDDLECENTER );
+            app.preferences.rulerUnits = orUnits;
+        }
+*/
+        activeDocument.resizeImage(UnitValue(_W,"px"),UnitValue(_H,"px"),null,ResampleMethod.BICUBIC);
+        activeDocument.resizeCanvas(1920, 1280);
+        activeDocument.close(SaveOptions.SAVECHANGES);
+    }
+
+    if (target == 0){
+        for (var i =0; i<kXML.pages.children().length(); i ++) {
+            parse(i);
+        }
+    }else{
+        parse(target-1);
+    }
+}
+
+
 alert("This script converts Kwik3 to Kwik4 Universal Config. Please select a .kwk file");
-KwikResize()
-alert("Done. \n 1. Open the .kwk with Kwik4. \n 2. Project Properties > Publish > Update template");
+initSize(_Type);
+var f = selectDialog();
+KwikResize(f);
+resizePSD(f)
+alert("Done. Opne the .kwk with Kwik4")
