@@ -1,0 +1,32 @@
+Adobe CEP
+	https://github.com/Adobe-CEP/Getting-Started-guides/blob/master/LICENSE
+	Vulcan-5.0.0.js
+	CSInterface.js
+Extendables (MIT)
+	https://github.com/debrouwere/Extendables
+Javascript/CSS
+	bootstrap
+	jquery
+	jquery.mobile
+	npm
+	opentip-jquery
+	topcoat
+		https://github.com/topcoat/topcoat
+	ICanHaz
+		https://github.com/HenrikJoreteg/ICanHaz.js
+	EventHandler.jsinc
+		https://www.ozalto.com/en/event-driven-programming-with-extendscript/
+	base64
+	jasmine
+	json2
+	jsdoc
+Fonts
+	glyphicons
+		https://www.glyphicons.com/license/
+	SourceSansPro-Light
+		https://en.wikipedia.org/wiki/SIL_Open_Font_License
+PC/Mac
+	apngasm
+		https://github.com/apngasm/apngasm
+	pngguant
+		https://pngquant.org/
